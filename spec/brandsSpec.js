@@ -1,6 +1,6 @@
 const request = require('supertest');
 
-describe('Factories', () => {
+describe('Brands', () => {
     let app;
     let toDelete = [];
     beforeEach(() => {
@@ -10,22 +10,24 @@ describe('Factories', () => {
         app.close();
     });
 
-    it('creates a new factory', done => {
+
+    it('creates a new brand', done => {
         request(app)
-            .post('/factories')
-            .send({ name: 'TestFactory' })
+            .post('/brands')
+            .send({ name: 'TestBrand' })
             .expect(200)
             .end((err, res) => {
                 if (err) return done.fail(err);
-                expect(res.body.name).toEqual('TestFactory');
-                toDelete.push(res.body.id);
+                expect(res.body.name).toEqual('TestBrand');
+                toDelete.push(res.body.id)
+                console.log(toDelete)
                 done(res);
             });
     });
 
-    it('gets all factories', done => {
+    it('gets all brands', done => {
         request(app)
-            .get('/factories')
+            .get('/brands')
             .expect(200)
             .end((err, res) => {
                 if (err) return done.fail(err);
@@ -34,9 +36,9 @@ describe('Factories', () => {
             });
     });
 
-    it('gets a single factory', done => {
+    it('gets a single brand', done => {
         request(app)
-            .get('/factories/' + toDelete[0]) // admittedly, this is an ugly id.
+            .get('/brands/'+ toDelete[0]) // admittedly, this is an ugly id.
             .expect(200)
             .end((err, res) => {
                 if (err) return done.fail(err);
@@ -45,37 +47,37 @@ describe('Factories', () => {
             });
     });
 
-    it('creates a new factory with all required fields', done => {
+    it('creates a new brands with all required fields', done => {
         request(app)
-            .post('/factories')
-            .send({ name: 'EverythingTestFactory', email: 'email@email.com', phone_number: '123',
+            .post('/brands')
+            .send({ name: 'EverythingTestBrand', email: 'email@email.com', phone_number: '123',
              city: 'New York', state: 'NY' })
             .expect(200)
             .end((err, res) => {
                 if (err) return done.fail(err);
-                expect(res.body.name).toEqual('EverythingTestFactory');
-                toDelete.push(res.body.id);
+                expect(res.body.name).toEqual('EverythingTestBrand');
+                toDelete.push(res.body.id)
                 done(res);
             });
     });
 
-    it('posting to factories sets company type to factory', done => {
+    it('posting to brands sets company type to brand', done => {
         request(app)
-            .post('/factories')
-            .send({ name: 'CompTypeTestFactory', email: 'email@email.com', phone_number: '123',
+            .post('/brands')
+            .send({ name: 'CompTypeTestBrand', email: 'email@email.com', phone_number: '123',
              city: 'New York', state: 'NY' })
             .expect(200)
             .end((err, res) => {
                 if (err) return done.fail(err);
-                expect(res.body.company_type).toEqual('factory');
-                toDelete.push(res.body.id);
+                expect(res.body.company_type).toEqual('brand');
+                toDelete.push(res.body.id)
                 done(res);
             });
     });
 
-    it('finds an existing factory', done => {
+    it('finds an existing brand', done => {
         request(app)
-            .get('/factories/search?q=TestFactory')
+            .get('/brands/search?q=TestBrand')
             .expect(200)
             .end((err, res) => {
                 if (err) return done.fail(err);
@@ -84,9 +86,9 @@ describe('Factories', () => {
             });
     });
 
-    it('returns 404 when it can\'t find a factory', done => {
+    it('returns 404 when it can\'t find a brand', done => {
         request(app)
-            .get('/factories/search?q=foo bar')
+            .get('/brands/search?q=foo bar')
             .expect(404)
             .end((err, res) => {
                 if (err) return done.fail(err);
@@ -94,10 +96,10 @@ describe('Factories', () => {
             });
     });
 
-    it('deletes created factories', done => {
+    it('deletes created brands', done => {
       toDelete.forEach(id => {
         request(app)
-          .del(`/factories/${id}`)
+          .del(`/brands/${id}`)
           .expect(200)
           .end((err, res) => {
             if(err) return done.fail(err);

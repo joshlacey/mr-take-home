@@ -20,7 +20,7 @@ router.get('/search', (req, res) => {
         res.json(found[0])
       } else {
         res.status(404)
-            .statusText('Not Found')
+           .send("Not Found")
       }
     })
 });

@@ -182,7 +182,7 @@ class SearchCompanies extends React.Component {
           return res.json()
         }
         })
-        .catch(error => alert(error))
+      .catch(error => alert(error))
       .then(json => {
         this.setState({found: json, searchTerm: ''})
       })

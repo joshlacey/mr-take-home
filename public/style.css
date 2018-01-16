@@ -1,0 +1,32 @@
+body {
+  font-family: sans-serif;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 2em;
+  
+}
+
+.create-form input, select, h5 {
+  display: block;
+  margin: 10px;
+  padding: 5px;
+}
+
+.create-form {
+  border: 1px solid black;
+}
+
+.company-div {
+
+}
+
+.company-list {
+
+}
+
+.search-field {
+
+}

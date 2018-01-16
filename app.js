@@ -18,6 +18,7 @@ app.use('/brands', brandRoutes);
 // going to http://localhost:3000/ in your browser should yield 'OK'
 app.get('/', (req, res) => {
     res.sendStatus(200);
+    res.send(index.html)
 });
 
 // catch 404 and forward to error handler

@@ -15,12 +15,12 @@ router.get('/search', (req, res) => {
     const searchQuery = req.query.q;
     brandStore.list((err, objects) => {
       if (err) throw err;
-      let found = objects.filter(object => object.name === searchQuery && object.company_type === 'brand') //TODO add object.company_type === 'factory'
+      let found = objects.filter(object => object.name === searchQuery && object.company_type === 'brand')
       if(found.length){
         res.json(found[0])
       } else {
         res.status(404)
-            .json("Not Found")
+            .statusText('Not Found')
       }
     })
 });
@@ -35,7 +35,6 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     if (!req.body) return res.sendStatus(400);
     const { name, email, phone_number, city, state } = req.body
-    //TODO validate types
     const id = uuid();
     const newBrand = { id, name, email, phone_number, city, state, company_type: 'brand' };
     brandStore.add(newBrand, err => {

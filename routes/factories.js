@@ -20,7 +20,7 @@ router.get('/search', (req, res) => {
         res.json(found[0])
       } else {
         res.status(404)
-            .json("Not Found")
+            .statusText("Not Found")
       }
     })
 });
@@ -35,7 +35,6 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     if (!req.body) return res.sendStatus(400);
     const { name, email, phone_number, city, state } = req.body
-    //TODO validate types
     const id = uuid();
     const newFactory = { id, name, email, phone_number, city, state, company_type: 'factory' };
     factoryStore.add(newFactory, err => {
